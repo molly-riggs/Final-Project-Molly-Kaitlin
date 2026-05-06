@@ -107,8 +107,21 @@ p {
   height: 120px;
   border-radius: 999px;
   object-fit: cover;
-  display: inline-block;
-  margin-bottom: 0.75rem;
+  /* ensure the image fills the circular container without leaving a hairline gap */
+  display: block;
+  margin: 0 auto 0.75rem auto;
+  object-position: center center;
+  /* rendering hints to avoid subpixel gaps on some browsers */
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Slightly overfill the circular image to avoid subpixel gaps or visible seams
+   caused by antialiasing or shadows on some browsers. The parent has overflow:hidden. */
+.profile .avatar {
+  min-width: 102%;
+  min-height: 102%;
 }
 
 @media (max-width: 680px) {
