@@ -25,19 +25,134 @@
 
     <section class="profiles">
       <article class="profile">
-  <img src="images/molly.jpg" alt="Molly profile photo" class="avatar">
+        <div id="molly-photo-placeholder" style="width:120px; height:120px; border-radius:999px; background:linear-gradient(135deg, rgba(244,114,182,0.15), rgba(0,0,0,0.05)); display:inline-flex; align-items:center; justify-content:center; margin-bottom:0.75rem; cursor:pointer; position:relative; overflow:hidden;">
+          <img id="molly-avatar" src="" alt="Molly profile photo" class="avatar" style="display:none; width:120px; height:120px; object-fit:cover; object-position:center 20%;">
+          <span id="molly-placeholder-text" style="text-align:center; font-size:0.9rem; color:#666;">Click to add<br>photo</span>
+        </div>
         <h2>Molly</h2>
         <p>Placeholder for Molly's introduction. Replace this with your short bio.</p>
+        <div style="margin-top:0.5rem; font-size:0.9rem;">
+          <label style="cursor:pointer; color:#f472b6; font-weight:600;">
+            📤 Upload photo
+            <input id="molly-file-input" type="file" accept="image/*" style="display:none;">
+          </label>
+        </div>
       </article>
 
       <article class="profile">
-        <div class="avatar placeholder">Photo (Kaitlin)</div>
+        <div id="kaitlin-photo-placeholder" style="width:120px; height:120px; border-radius:999px; background:linear-gradient(135deg, rgba(244,114,182,0.15), rgba(0,0,0,0.05)); display:inline-flex; align-items:center; justify-content:center; margin-bottom:0.75rem; cursor:pointer; position:relative; overflow:hidden;">
+          <img id="kaitlin-avatar" src="" alt="Kaitlin profile photo" class="avatar" style="display:none; width:120px; height:120px; object-fit:cover; object-position:center 20%;">
+          <span id="kaitlin-placeholder-text" style="text-align:center; font-size:0.9rem; color:#666;">Click to add<br>photo</span>
+        </div>
         <h2>Kaitlin</h2>
         <p>Placeholder for Kaitlin's introduction. Replace this with your short bio and an actual image.</p>
+        <div style="margin-top:0.5rem; font-size:0.9rem;">
+          <label style="cursor:pointer; color:#f472b6; font-weight:600;">
+            📤 Upload photo
+            <input id="kaitlin-file-input" type="file" accept="image/*" style="display:none;">
+          </label>
+        </div>
       </article>
     </section>
 
     <p>Add images by placing files in the project folder and replacing the `.placeholder` divs with `<img src="your-photo.jpg" alt="...">`.</p>
   </main>
+  <script>
+    // Molly avatar handler
+    const mollyAvatar = document.getElementById('molly-avatar');
+    const mollyFileInput = document.getElementById('molly-file-input');
+    const mollyPhotoPlaceholder = document.getElementById('molly-photo-placeholder');
+    const mollyPlaceholderText = document.getElementById('molly-placeholder-text');
+    const MOLLY_KEY = 'molly_avatar_dataurl';
+    
+    function showImage(dataUrl) {
+      mollyAvatar.src = dataUrl;
+      mollyAvatar.style.display = 'inline-block';
+      mollyPlaceholderText.style.display = 'none';
+      mollyAvatar.width = 120;
+      mollyAvatar.height = 120;
+    }
+    
+    function hideImage() {
+      mollyAvatar.style.display = 'none';
+      mollyPlaceholderText.style.display = 'block';
+    }
+    
+    // Load from localStorage on page load
+    const saved = localStorage.getItem(MOLLY_KEY);
+    if (saved) {
+      showImage(saved);
+    }
+    
+    // Make placeholder clickable to trigger file input
+    mollyPhotoPlaceholder.addEventListener('click', () => {
+      mollyFileInput.click();
+    });
+    
+    // Handle file selection
+    mollyFileInput.addEventListener('change', (ev) => {
+      const file = ev.target.files?.[0];
+      if (!file || !file.type.startsWith('image/')) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const dataUrl = e.target.result;
+        showImage(dataUrl);
+        try {
+          localStorage.setItem(MOLLY_KEY, dataUrl);
+        } catch (err) {
+          console.warn('Could not save to localStorage:', err);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Kaitlin avatar handler
+    const kaitlinAvatar = document.getElementById('kaitlin-avatar');
+    const kaitlinFileInput = document.getElementById('kaitlin-file-input');
+    const kaitlinPhotoPlaceholder = document.getElementById('kaitlin-photo-placeholder');
+    const kaitlinPlaceholderText = document.getElementById('kaitlin-placeholder-text');
+    const KAITLIN_KEY = 'kaitlin_avatar_dataurl';
+    
+    function showKaitlinImage(dataUrl) {
+      kaitlinAvatar.src = dataUrl;
+      kaitlinAvatar.style.display = 'inline-block';
+      kaitlinPlaceholderText.style.display = 'none';
+      kaitlinAvatar.width = 120;
+      kaitlinAvatar.height = 120;
+    }
+    
+    function hideKaitlinImage() {
+      kaitlinAvatar.style.display = 'none';
+      kaitlinPlaceholderText.style.display = 'block';
+    }
+    
+    // Load from localStorage on page load
+    const kaitlinSaved = localStorage.getItem(KAITLIN_KEY);
+    if (kaitlinSaved) {
+      showKaitlinImage(kaitlinSaved);
+    }
+    
+    // Make placeholder clickable to trigger file input
+    kaitlinPhotoPlaceholder.addEventListener('click', () => {
+      kaitlinFileInput.click();
+    });
+    
+    // Handle file selection
+    kaitlinFileInput.addEventListener('change', (ev) => {
+      const file = ev.target.files?.[0];
+      if (!file || !file.type.startsWith('image/')) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const dataUrl = e.target.result;
+        showKaitlinImage(dataUrl);
+        try {
+          localStorage.setItem(KAITLIN_KEY, dataUrl);
+        } catch (err) {
+          console.warn('Could not save to localStorage:', err);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  </script>
 </body>
 </html>
