@@ -75,3 +75,67 @@ p {
 @media (max-width: 480px) {
   .nav a { padding: 0.4rem 0.6rem; font-size: 0.95rem; }
 }
+
+/* Profiles on home page */
+.profiles {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+.profile {
+  background: linear-gradient(180deg, rgba(var(--accent-rgb),0.04), rgba(0,0,0,0.02));
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+}
+.avatar.placeholder {
+  width: 120px;
+  height: 120px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(var(--accent-rgb),0.12), rgba(0,0,0,0.04));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 999px;
+  object-fit: cover;
+  display: inline-block;
+  margin-bottom: 0.75rem;
+}
+
+@media (max-width: 680px) {
+  .profiles { grid-template-columns: 1fr; }
+}
+
+/* Gallery */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+.gallery-item {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(15,23,42,0.06);
+  background: #fff;
+}
+.controls { margin-top: 0.75rem; }
+.file-label input { display: none; }
+.file-label {
+  display: inline-block;
+  padding: 0.45rem 0.9rem;
+  background: rgba(var(--accent-rgb), 0.12);
+  border-radius: 8px;
+  cursor: pointer;
+}
