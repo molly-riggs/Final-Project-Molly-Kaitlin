@@ -21,20 +21,20 @@
       </nav>
     </header>
 
-    <h1>Welcome</h1>
+    <h1>Meet the Creators</h1>
 
     <section class="profiles">
       <article class="profile">
-        <div id="molly-photo-placeholder" style="width:120px; height:120px; border-radius:999px; background:linear-gradient(135deg, rgba(244,114,182,0.15), rgba(0,0,0,0.05)); display:inline-flex; align-items:center; justify-content:center; margin-bottom:0.75rem; cursor:pointer; position:relative; overflow:hidden;">
+  <div id="molly-photo-placeholder" style="width:120px; height:120px; border-radius:12px; background:linear-gradient(135deg, rgba(244,114,182,0.15), rgba(0,0,0,0.05)); display:inline-flex; align-items:center; justify-content:center; margin-bottom:0.75rem; cursor:pointer; position:relative; overflow:hidden;">
           <img id="molly-avatar" src="" alt="Molly profile photo" class="avatar" style="display:none; width:120px; height:120px; object-fit:cover;">
           <span id="molly-placeholder-text" style="text-align:center; font-size:0.9rem; color:#666;">Click to add<br>photo</span>
         </div>
         <h2>Molly Riggs</h2>
-        <p>My name is Molly Riggs, and I am a senior at Texas Christian University. I am graduating in May 2026 with a major in Marketing and a minor in Digital Culture and Data Analytics. I am passionate about web design, creativity, and am excited to pursue a career in sales.</p>
+        <p>My name is Molly Riggs, and I am a senior at Texas Christian University. I am graduating in May of 2026 with a major in Marketing and a minor in Digital Culture and Data Analytics. I am passionate about web design, creativity, and am excited to pursue a career in sales post graduation.</p>
       </article>
 
       <article class="profile">
-        <div id="kaitlin-photo-placeholder" style="width:120px; height:120px; border-radius:999px; background:linear-gradient(135deg, rgba(244,114,182,0.15), rgba(0,0,0,0.05)); display:inline-flex; align-items:center; justify-content:center; margin-bottom:0.75rem; cursor:pointer; position:relative; overflow:hidden;">
+  <div id="kaitlin-photo-placeholder" style="width:120px; height:120px; border-radius:12px; background:linear-gradient(135deg, rgba(244,114,182,0.15), rgba(0,0,0,0.05)); display:inline-flex; align-items:center; justify-content:center; margin-bottom:0.75rem; cursor:pointer; position:relative; overflow:hidden;">
           <img id="kaitlin-avatar" src="" alt="Kaitlin profile photo" class="avatar" style="display:none; width:120px; height:120px; object-fit:cover;">
           <span id="kaitlin-placeholder-text" style="text-align:center; font-size:0.9rem; color:#666;">Click to add<br>photo</span>
         </div>
@@ -43,7 +43,7 @@
       </article>
   </section>
 
-  \
+  
   </main>
   <script>
     // Molly avatar handler
@@ -55,7 +55,7 @@
     
     function showImage(dataUrl) {
       mollyAvatar.src = dataUrl;
-      mollyAvatar.style.display = 'inline-block';
+  mollyAvatar.style.display = 'block';
       mollyPlaceholderText.style.display = 'none';
       mollyAvatar.width = 120;
       mollyAvatar.height = 120;
@@ -111,7 +111,7 @@
     
     function showKaitlinImage(dataUrl) {
       kaitlinAvatar.src = dataUrl;
-      kaitlinAvatar.style.display = 'inline-block';
+  kaitlinAvatar.style.display = 'block';
       kaitlinPlaceholderText.style.display = 'none';
       kaitlinAvatar.width = 120;
       kaitlinAvatar.height = 120;
@@ -122,15 +122,15 @@
       kaitlinPlaceholderText.style.display = 'block';
     }
     
-    // Try loading from project images folder first
-    kaitlinAvatar.src = 'images/kaitlin.jpg.png';
+  // Try loading from project images folder first
+  kaitlinAvatar.src = 'images/kaitlin.jpg.png';
     // Fallback to localStorage if present
     const kaitlinSaved = localStorage.getItem(KAITLIN_KEY);
     if (kaitlinSaved) {
       kaitlinAvatar.src = kaitlinSaved;
       showKaitlinImage(kaitlinSaved);
     } else {
-      kaitlinAvatar.style.display = 'inline-block';
+      kaitlinAvatar.style.display = 'block';
       kaitlinPlaceholderText.style.display = 'none';
     }
     
@@ -166,8 +166,8 @@
 
     // When the image successfully loads, ensure the UI reflects that
     kaitlinAvatar.addEventListener('load', () => {
-      // If the avatar loaded from filesystem, show it using the same helper
-      if (kaitlinAvatar.src && kaitlinAvatar.src.indexOf('data:') !== 0) {
+      // Show the image using the same helper (works for filesystem or data URLs)
+      if (kaitlinAvatar.src) {
         showKaitlinImage(kaitlinAvatar.src);
       }
     });

@@ -92,7 +92,8 @@ p {
 .avatar.placeholder {
   width: 120px;
   height: 120px;
-  border-radius: 999px;
+  /* square with small rounded corners */
+  border-radius: 12px;
   background: linear-gradient(135deg, rgba(var(--accent-rgb),0.12), rgba(0,0,0,0.04));
   display: inline-flex;
   align-items: center;
@@ -105,7 +106,8 @@ p {
 .avatar {
   width: 120px;
   height: 120px;
-  border-radius: 999px;
+  /* square with small rounded corners */
+  border-radius: 12px;
   object-fit: cover;
   /* ensure the image fills the circular container without leaving a hairline gap */
   display: block;
@@ -122,6 +124,29 @@ p {
 .profile .avatar {
   min-width: 102%;
   min-height: 102%;
+}
+
+/* Make the placeholder a positioned flex container and ensure the img exactly fills it */
+[id$="-photo-placeholder"] {
+  /* keep inline layout but ensure content centering */
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+[id$="-photo-placeholder"] .avatar {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+  border-radius: inherit;
+  transform: none;
+  min-width: 0;
+  min-height: 0;
 }
 
 @media (max-width: 680px) {
