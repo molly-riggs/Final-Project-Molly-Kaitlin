@@ -41,9 +41,9 @@
         <h2>Kaitlin</h2>
         <p>Placeholder for Kaitlin's introduction. Replace this with your short bio and an actual image.</p>
       </article>
-    </section>
+  </section>
 
-    <p>Add images by placing files in the project folder and replacing the `.placeholder` divs with `<img src="your-photo.jpg" alt="...">`.</p>
+  <p>Add images by placing files in the project folder and replacing the `.placeholder` divs with `<img src="your-photo.jpg" alt="...">`.</p>
   </main>
   <script>
     // Molly avatar handler
@@ -66,10 +66,18 @@
       mollyPlaceholderText.style.display = 'block';
     }
     
-    // Load from localStorage on page load
+    // Try loading from project images folder first
+    mollyAvatar.src = 'images/molly.jpg';
+    // Fallback to localStorage if present
     const saved = localStorage.getItem(MOLLY_KEY);
     if (saved) {
+      // keep existing saved override if desired
+      mollyAvatar.src = saved;
       showImage(saved);
+    } else {
+      // show filesystem image if available
+      mollyAvatar.style.display = 'inline-block';
+      mollyPlaceholderText.style.display = 'none';
     }
     
     // Make placeholder clickable to trigger file input
@@ -114,10 +122,16 @@
       kaitlinPlaceholderText.style.display = 'block';
     }
     
-    // Load from localStorage on page load
+    // Try loading from project images folder first
+    kaitlinAvatar.src = 'images/kaitlin.jpg.png';
+    // Fallback to localStorage if present
     const kaitlinSaved = localStorage.getItem(KAITLIN_KEY);
     if (kaitlinSaved) {
+      kaitlinAvatar.src = kaitlinSaved;
       showKaitlinImage(kaitlinSaved);
+    } else {
+      kaitlinAvatar.style.display = 'inline-block';
+      kaitlinPlaceholderText.style.display = 'none';
     }
     
     // Make placeholder clickable to trigger file input
@@ -141,6 +155,25 @@
       };
       reader.readAsDataURL(file);
     });
+
+    // If the filesystem image fails to load (odd extension or missing), try a simpler filename
+    kaitlinAvatar.addEventListener('error', () => {
+      console.warn('Kaitlin avatar failed to load from images/kaitlin.jpg.png — trying images/kaitlin.jpg');
+      // avoid infinite loop if the alternate also fails
+      kaitlinAvatar.onerror = null;
+      kaitlinAvatar.src = 'images/kaitlin.jpg';
+    });
+
+    // When the image successfully loads, ensure the UI reflects that
+    kaitlinAvatar.addEventListener('load', () => {
+      // If the avatar loaded from filesystem, show it using the same helper
+      if (kaitlinAvatar.src && kaitlinAvatar.src.indexOf('data:') !== 0) {
+        showKaitlinImage(kaitlinAvatar.src);
+      }
+    });
   </script>
+  <!-- Hidden file inputs used by the JS handlers above; placed here to avoid runtime errors if missing -->
+  <input type="file" id="molly-file-input" accept="image/*" style="display:none">
+  <input type="file" id="kaitlin-file-input" accept="image/*" style="display:none">
 </body>
 </html>
