@@ -4,14 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Introduction</title>
-        <!-- Redirect to home.html so the site opens on the Home page by default -->
-        <meta http-equiv="refresh" content="0;url=home.html">
-        <script>/* JS redirect as a faster fallback */
-            if (location.pathname.endsWith('index.html') || location.pathname === '/' ) {
-                location.replace('home.html');
-            }
-        </script>
-    <link rel="stylesheet" href="styles.css">
+            <link rel="stylesheet" href="styles.css">
+            <!-- If the user opened index.html directly (no fromnav flag), redirect to Home by default -->
+            <script>
+                (function(){
+                    try {
+                        const params = new URLSearchParams(window.location.search);
+                        if (!params.has('fromnav')) {
+                            // redirect to Home on first visit
+                            window.location.replace('home.html');
+                        }
+                    } catch (e) {
+                        // if anything goes wrong, do not block the page
+                        console.warn('redirect check failed', e);
+                    }
+                })();
+            </script>
 </head>
 <body>
     <main class="container">
