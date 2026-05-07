@@ -83,6 +83,18 @@
       mollyAvatar.style.display = 'inline-block';
       mollyPlaceholderText.style.display = 'none';
     }
+
+    mollyAvatar.addEventListener('error', () => {
+      console.warn('Molly avatar failed to load. Showing placeholder.');
+      mollyAvatar.onerror = null;
+      hideImage();
+    });
+
+    mollyAvatar.addEventListener('load', () => {
+      if (mollyAvatar.src) {
+        showImage(mollyAvatar.src);
+      }
+    });
     
     // Make placeholder clickable to trigger file input
     mollyPhotoPlaceholder.addEventListener('click', () => {
