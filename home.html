@@ -40,12 +40,15 @@
           <span id="kaitlin-placeholder-text" style="text-align:center; font-size:0.9rem; color:#666;">Click to add<br>photo</span>
         </div>
         <h2>Kaitlin Beltran</h2>
-        <p>Placeholder for Kaitlin's introduction. Replace this with your short bio and an actual image.</p>
+        <p>My name is Kaitlin Beltran, and I am a Marketing major and Digital Culture and Data Analytics minor at Texas Christian University. I am graduating in May of 2026, and will be pursuing a sales career post grad. My passions include sales, data analytics and marketing.</p>
       </article>
   </section>
 
   
   </main>
+  <!-- Hidden file inputs used by the JS handlers below -->
+  <input type="file" id="molly-file-input" accept="image/*" style="display:none">
+  <input type="file" id="kaitlin-file-input" accept="image/*" style="display:none">
   <script>
     // Molly avatar handler
     const mollyAvatar = document.getElementById('molly-avatar');
@@ -157,12 +160,12 @@
       reader.readAsDataURL(file);
     });
 
-    // If the filesystem image fails to load (odd extension or missing), try a simpler filename
+    // If the filesystem image fails to load, show placeholder text
     kaitlinAvatar.addEventListener('error', () => {
-      console.warn('Kaitlin avatar failed to load from images/kaitlin.jpg.png — trying images/kaitlin.jpg');
-      // avoid infinite loop if the alternate also fails
+      console.warn('Kaitlin avatar failed to load. Showing placeholder.');
+      // avoid repeated error handling
       kaitlinAvatar.onerror = null;
-      kaitlinAvatar.src = 'images/kaitlin.jpg';
+      hideKaitlinImage();
     });
 
     // When the image successfully loads, ensure the UI reflects that
@@ -173,8 +176,5 @@
       }
     });
   </script>
-  <!-- Hidden file inputs used by the JS handlers above; placed here to avoid runtime errors if missing -->
-  <input type="file" id="molly-file-input" accept="image/*" style="display:none">
-  <input type="file" id="kaitlin-file-input" accept="image/*" style="display:none">
 </body>
 </html>
